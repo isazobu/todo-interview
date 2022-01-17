@@ -3,64 +3,28 @@ import TodoForm from "./TodoForm";
 import Todo from "./Todo";
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  // TODO: Implement useState hook to manage todos
 
-  localStorage.getItem("todos") &&
-    setTodos(JSON.parse(localStorage.getItem("todos")));
+  // Get all todos from local storage
 
-  console.log(todos);
+  // Add a todo to the list of todos when the form is submitted
+  // in addition to clear the input field after the todo is added
+  // moreover add the local storage
   const addTodo = (todo) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
-
-    const newTodos = [todo, ...todos];
-
-    setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
-    console.log(...todos);
+    return;
   };
 
-  const updateTodo = (todoId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
-      return;
-    }
+  // Update a todo in the list and save to local storage
+  const updateTodo = (todoId, newValue) => {};
 
-    const updateTodos = todos.map((item) =>
-      item.id === todoId ? newValue : item
-    );
-    localStorage.setItem("todos", JSON.stringify(updateTodos));
-    setTodos(updateTodos);
-
-    //local storage update
-  };
-
-  const removeTodo = (id) => {
-    const removedArr = [...todos].filter((todo) => todo.id !== id);
-    localStorage.setItem("todos", JSON.stringify(removedArr));
-    setTodos(removedArr);
-  };
-
-  const completeTodo = (id) => {
-    let updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  };
+  // Remove a todo from the list and save to local storage (if available)
+  const removeTodo = (id) => {};
 
   return (
     <>
       <h1>What's the Plan for Today?</h1>
       <TodoForm onSubmit={addTodo} />
-      <Todo
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
+      <Todo todos={[]} removeTodo={removeTodo} updateTodo={updateTodo} />
     </>
   );
 }
